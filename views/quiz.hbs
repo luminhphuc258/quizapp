@@ -1,0 +1,66 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Write your blog</h2>
+          <form id="blogpostForm" action="/adduserinterest" method="post">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title" name="title" placeholder="Enter your blog title"
+                required />
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">Content</label>
+              <input type="text" class="form-control" id="content" name="content" placeholder="Enter your blog content"
+                required />
+            </div>
+            <div class="mb-3">
+              <label for="author" class="form-label">Author</label>
+              <input type="author" class="form-control" id="author" name="author" placeholder="Enter author" required />
+            </div>
+            <div class="mb-3">
+              <label for="topic" class="form-label">Topic</label>
+              <textarea class="form-control" id="topic" name="topic" rows="4" placeholder="Enter your Blog Topic"
+                required></textarea>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('blogpostForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+    const url = "http://localhost:3000/storeBlogPost";
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title: formData.get('title'),
+        content: formData.get('content'),
+        author: formData.get('author'),
+        topic: formData.get('topic')
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        alert('Post This blog Successfully!');
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Cannot Post this Blog!');
+      });
+  });
+</script>

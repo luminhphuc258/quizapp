@@ -1,0 +1,119 @@
+<style>
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f4f4f4;
+  }
+
+  button {
+    padding: 5px 10px;
+    margin: 2px;
+    cursor: pointer;
+  }
+</style>
+<br>
+<center>
+  <button><a href="/readBlogPost">Load Data of BlogPosts</a></button>
+</center>
+<hr>
+<h1>Blog Posts</h1>
+{{#if tableBody}}
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Author</th>
+      <th>Topic</th>
+      <th>Created At</th>
+      <th>Updated At</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{{ tableBody }}}
+  </tbody>
+</table>
+{{else}}
+<br>
+<center>
+  <h4>No Data Or You have not clicked the above button to load data!.</h4>
+</center>
+{{/if}}
+
+<script>
+  // Function to delete a blog post.
+  function deleteBlogPost(id) {
+    alert(id);
+    if (confirm("Are you sure you want to delete this blog post?")) {
+      fetch('http://localhost:3000/deleteBlogPost', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: id
+        })
+      })
+        .then(response => {
+          if (response.ok) {
+            alert("Blog post deleted successfully.");
+            location.reload();
+          } else {
+            alert("Failed to delete blog post.");
+          }
+        })
+        .catch(error => {
+          console.error("Error deleting blog post:", error);
+        });
+    }
+  }
+
+  // Function to edit a blog post.
+  function editBlogPost(id, title, content, author, topic) {
+    const newTitle = prompt("Edit Title:", title);
+    const newContent = prompt("Edit Content:", content);
+    const newAuthor = prompt("Edit Author:", author);
+    const newTopic = prompt("Edit Topic:", topic);
+
+    if (newTitle !== null && newContent !== null && newAuthor !== null && newTopic !== null) {
+      const updatedData = { title: newTitle, content: newContent, author: newAuthor, topic: newTopic };
+      fetch('http://localhost:3000/updateBlogPost', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: id,
+          title: newTitle,
+          content: newContent,
+          author: newAuthor,
+          topic: newTopic
+        })
+      })
+        .then(response => {
+          if (response.ok) {
+            alert("Blog post updated successfully.");
+            location.reload();
+          } else {
+            alert("Failed to update blog post.");
+          }
+        })
+        .catch(error => {
+          console.error("Error updating blog post:", error);
+        });
+    }
+  }
+</script>
