@@ -28,6 +28,9 @@ router.get('/logout', (req, res) => {
       console.error("Error destroying session:", err);
       return res.status(500).send("Could not log out, please try again.");
     }
+
+    // clear all cookie token on client browers
+    // res.clearCookie("token");
     res.redirect('/login');
   });
 });

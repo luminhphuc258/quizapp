@@ -22,6 +22,9 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     })
     .then(data => {
       console.log(data);
+      localStorage.setItem("token", data.token);
+      // const token = localStorage.getItem("token");
+      // alert(token);
       alert('Login Successfully!');
       window.location.reload();
     })
