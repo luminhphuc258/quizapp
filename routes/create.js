@@ -1,7 +1,7 @@
 import express from 'express';
-import { storeBlogPost } from "../handlers/blogpost.js";
 const router = express.Router();
+import adduser from "../handlers/register.js";
 
-router.post("/storeBlogPost", storeBlogPost);
+router.post("/register", adduser);
 
 export default router;

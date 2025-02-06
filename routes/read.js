@@ -1,7 +1,14 @@
 import express from 'express';
-import { fetchBlogPosts } from "../handlers/blogpost.js";
+import { fetchQuestions } from "../handlers/quiz.js";
 const router = express.Router();
 
-router.get("/readBlogPost", fetchBlogPosts);
+// get quiz page 
+router.get('/quiz', (req, res) => {
+  res.render('quiz');
+});
+
+// get quiz data  
+router.post("/fecthquizdata", fetchQuestions);
+
 
 export default router;
