@@ -39,8 +39,6 @@ export const checkUserRoleBeforeLogin = async (req, res, next) => {
       { expiresIn: '1h' }
     );
 
-
-
     console.log("==========")
     console.log(Username);
     req.session.username = Username;

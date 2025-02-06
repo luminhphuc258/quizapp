@@ -2,7 +2,6 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
   event.preventDefault();
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
-  alert(username);
   const url = "http://localhost:3000/login";
 
   fetch(url, {
@@ -24,6 +23,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     .then(data => {
       console.log(data);
       alert('Login Successfully!');
+      window.location.reload();
     })
     .catch(error => {
       console.error('Error:', error);

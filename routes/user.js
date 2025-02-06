@@ -5,7 +5,11 @@ const router = express.Router();
 
 //One to render the form where users can input their details
 router.get('/', (req, res) => {
-  res.render('index');
+  if (req.session.isLoggined) {
+    res.render('index', { username: req.session.username, isLoggined: true, userRole: req.session.role });
+  } else {
+    res.render('login', { username: '', isLoggined: false, userRole: '' });
+  }
 });
 
 router.get('/login', (req, res) => {
@@ -17,5 +21,17 @@ router.get('/register', (req, res) => {
 });
 
 router.post('/login', checkUserRoleBeforeLogin, handleLogin);
+
+router.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      return res.status(500).send("Could not log out, please try again.");
+    }
+    res.redirect('/login');
+  });
+});
+
+
 
 export default router;
