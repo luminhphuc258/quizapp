@@ -4,6 +4,7 @@ import UsersSchema from '../models/user.js';
 
 export const checkUserRoleBeforeLogin = async (req, res, next) => {
   try {
+    console.log(req.body);
     const { username, password } = req.body;
 
     // Ensure both username and password are provided
@@ -25,19 +26,28 @@ export const checkUserRoleBeforeLogin = async (req, res, next) => {
       }
     }
 
-    // Assign role dynamically
-    const userRole = UsersSchema.role === 1 ? "admin" : "user";
 
+    console.log("info user from db");
+    const Username = user.dataValues.username;
+    const usrRole = user.dataValues.role;
+    const UserId = user.dataValues.id;
+    console.log(Username);
     // Generate JWT token
     const token = jwt.sign(
-      { id: user.id, username: user.username, role: userRole },
+      { id: UserId, username: Username, role: usrRole },
       process.env.JWT_SECRET || 'happyquzi',
       { expiresIn: '1h' }
     );
 
-    req.user = { username, role: userRole, token };
 
-    console.log("User authenticated:", req.user);
+
+    console.log("==========")
+    console.log(Username);
+    req.session.username = Username;
+    req.session.role = usrRole;
+    req.session.token = token;
+    req.session.isLoggined = true;
+    console.log("User authenticated:");
     next();
 
   } catch (error) {

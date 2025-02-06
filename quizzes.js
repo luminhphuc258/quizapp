@@ -4,8 +4,8 @@ import createRouter from './routes/create.js';
 import readRouter from './routes/read.js';
 import updateRouter from './routes/update.js';
 import deleteRouter from './routes/delete.js';
+import session from 'express-session';
 import cors from "cors";
-
 import path from 'path';
 import { fileURLToPath } from 'url';
 // import handle bar
@@ -23,7 +23,12 @@ const logRequestsMiddleware = (req, res, next) => {
 };
 server.use(logRequestsMiddleware);
 server.use(cors());
-
+server.use(session({
+  secret: 'happyquiz',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 server.set('views', './views');
 server.use(express.json());
 server.use(userRouter);

@@ -1,9 +1,8 @@
 document.getElementById('loginForm').addEventListener('submit', function (event) {
-  alert("login");
-  alert(formData.get('username'));
   event.preventDefault();
-
-  const formData = new FormData(this);
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  alert(username);
   const url = "http://localhost:3000/login";
 
   fetch(url, {
@@ -12,8 +11,8 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      username: formData.get('username'),
-      password: formData.get('password')
+      username,
+      password
     })
   })
     .then(response => {
