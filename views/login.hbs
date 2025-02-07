@@ -1,71 +1,54 @@
-<style>
-  .log-in-pop {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 10px;
-    background: #f8f8f8;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
+<br>
+<br>
+<br>
+<br>
+<br>
+<main style="margin-top: 10px;">
+  <div class="log-in-pop" style=" border-radius:10px;">
+    <div class="log-in-pop-left">
+      <center>
+        <img src="/images/panda_sign.png" style="background-size: contain; height: 60%; width: 60%;">
+      </center>
+    </div>
+    <div class="log-in-pop-right">
+      <b style="text-align: center; font-size: 1.9rem; font-weight: 800;">Login</b>
 
-  .log-in-pop img {
-    max-width: 100px;
-    margin-bottom: 10px;
-  }
-
-  .form-group {
-    text-align: left;
-  }
-
-  .log-in-btn {
-    width: 100%;
-    background: #337ab7;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-  }
-
-  .log-in-btn:hover {
-    background: #286090;
-  }
-
-  .remember-me {
-    margin-top: 10px;
-  }
-
-  .links {
-    margin-top: 10px;
-  }
-</style>
-<div class="container">
-  <div class="log-in-pop">
-    <img src="/images/panda_sign.png" alt="Panda Logo">
-    <h2>Login</h2>
-
-    <form id="loginForm" action="/login" method="POST">
-      <div class="form-group">
-        <label for="username">User Name</label>
-        <input type="text" id="username" name="username" class="form-control" required>
-      </div>
-
-      <div class="form-group">
-        <label for="Password">Password</label>
-        <input type="password" id="password" name="password" class="form-control" required>
-      </div>
-
-      <div class="checkbox remember-me">
-        <label><input type="checkbox" id="test5"> Remember me</label>
-      </div>
-
-      <button type="submit" class="btn log-in-btn">Login</button>
-
-      <div class="links">
-        <a href="#" data-toggle="modal" data-target="#modal3">Forgot password?</a> |
-        <a href="#" data-toggle="modal" data-target="#modal2">Create a new account</a>
-      </div>
-    </form>
+      <form id="loginForm" class="s12" action="/signin" method="POST">
+        <br>
+        <div>
+          <div class="input-field s12">
+            <input type="email" id="username" name="username" data-ng-model="name" class="validate" required>
+            <label>User name</label>
+          </div>
+        </div>
+        <div>
+          <div class="input-field s12">
+            <input type="password" id="password" name="password" class="validate" required>
+            <label>Password</label>
+          </div>
+        </div>
+        <div>
+          <br>
+          <div class="s12 log-ch-bx">
+            <p>
+              <input type="checkbox" id="test5" />
+              <label for="test5">Remember me</label>
+            </p>
+          </div>
+        </div>
+        <br>
+        <div>
+          <div class="input-field s4">
+            <input type="submit" value="Login" class="waves-effect waves-light log-in-btn">
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
+  <br>
+</main>
+<br>
+<br>
+<br>
+<br>
+<br>

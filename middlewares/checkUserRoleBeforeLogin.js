@@ -26,21 +26,18 @@ export const checkUserRoleBeforeLogin = async (req, res, next) => {
       }
     }
 
-
     console.log("info user from db");
     const Username = user.dataValues.username;
     const usrRole = user.dataValues.role;
     const UserId = user.dataValues.id;
-    console.log(Username);
     // Generate JWT token
     const token = jwt.sign(
-      { id: UserId, username: Username, role: usrRole },
-      process.env.JWT_SECRET || 'happyquzi',
-      { expiresIn: '1h' }
+      { id: UserId, username: Username, role: usrRole }, 'happyquzi', { expiresIn: '1h' }
     );
 
-    console.log("==========")
-    console.log(Username);
+    console.log("====TOKEN RETURN======")
+    console.log(token);
+    console.log("=====================");
     req.session.username = Username;
     req.session.role = usrRole;
     req.session.token = token;

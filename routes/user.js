@@ -13,7 +13,11 @@ router.get('/', (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-  res.render('login');
+  if (req.session.isLoggined) {
+    res.render('index', { username: req.session.username, isLoggined: true, userRole: req.session.role });
+  } else {
+    res.render('login', { username: '', isLoggined: false, userRole: '' });
+  }
 });
 
 router.get('/register', (req, res) => {
@@ -23,16 +27,17 @@ router.get('/register', (req, res) => {
 router.post('/login', checkUserRoleBeforeLogin, handleLogin);
 
 router.get('/logout', (req, res) => {
-  req.session.destroy(err => {
-    if (err) {
-      console.error("Error destroying session:", err);
-      return res.status(500).send("Could not log out, please try again.");
-    }
-
-    // clear all cookie token on client browers
-    // res.clearCookie("token");
-    res.redirect('/login');
-  });
+  if (req.session.isLoggined) {
+    req.session.destroy(err => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res.status(500).send("Could not log out, please try again.");
+      }
+      // clear all cookie token on client browers
+      res.clearCookie("token");
+      res.redirect('/login');
+    });
+  }
 });
 
 

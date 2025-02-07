@@ -48,9 +48,11 @@
 </style>
 
 <center>
-    <h2>Quiz Attempts</h2>
-
-    <input type="text" id="searchInput" placeholder="Search by Username..." onkeyup="searchByUsername()">
+    <div class="log-in-pop" style=" border-radius:10px;">
+        <h3>Quiz Attempts</h3>
+        <input style="width: 90%; font-weight:700;" type="text" id="searchInput" placeholder="Search by Username..."
+            onkeyup="searchByUsername()">
+    </div>
 </center>
 
 
@@ -78,3 +80,20 @@
 {{else}}
 <p>No quiz attempts found.</p>
 {{/if}}
+<script>
+    function searchByUsername() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let table = document.getElementById("quizTable");
+        let rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+            let username = rows[i].getElementsByTagName("td")[1]?.textContent.toLowerCase();
+
+            if (username.includes(input)) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+</script>

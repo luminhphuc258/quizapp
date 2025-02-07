@@ -9,30 +9,59 @@ let limitedtime = 1
 let myModal
 let user = ""
 let quizID = "1";
-//hide submit quiz at the first time 
-$(document).ready(function () {
-  btnsubmitquiz = document.getElementById("containersubmitquiz")
-  // console.log(btnsubmitquiz)
-  btnsubmitquiz.style.display = "none"
-})
+//hide submit quiz at the first time
 
-function shownumberquestions(numquestions) {
-  let tagresult = document.getElementById("usertotalquestions")
-  tagresult.innerText = numquestions + " questions"
-  totalquestions = numquestions
-}
+// function shownumberquestions(numquestions) {
+//   let tagresult = document.getElementById("usertotalquestions")
+//   tagresult.innerText = numquestions + " questions"
+//   totalquestions = numquestions
+// }
 
-function setQuizId(number) {
-  quizID = number;
-}
+// function setQuizId(number, topic) {
+//   let tagresult = document.getElementById("questiontopic")
+//   tagresult.innerText = "Topic: " + topic;
+//   quizID = number;
+// }
+
+document.addEventListener("DOMContentLoaded", function () {
+  //start quiz
+  document.getElementById("btnStartQuiz").addEventListener("click", async function (event) {
+    startquiz();
+  });
+
+  // reset quiz
+  document.getElementById("btnReserQuiz").addEventListener("click", async function (event) {
+    restartQuiz();
+  });
+
+  // submit quiz
+  document.getElementById("btnSubmitQuiz").addEventListener("click", async function (event) {
+    showConfirmModal();
+  });
+
+
+});
+
+
 
 function restartQuiz() {
   window.location.reload()
 }
 
 function startquiz() {
+  const quiztopic = document.getElementById("quiztopic").value;
+  const numberofquestions = document.getElementById("btnnumberquestions").value;
+
+  if (!quiztopic || !numberofquestions) {
+    alert("Please select all esstinal information!");
+    return;
+  }
+
+  // assign value to total numbers
+  totalquestions = numberofquestions
+  quizID = quiztopic;
+
   document.getElementById("menusetting").style.display = "none"
-  btnsubmitquiz.style.display = "block"
   let leftmenu = document.getElementById("leftboard")
 
   // create button for right menu 
@@ -97,49 +126,51 @@ function create_Questions(totalquestionschosen) {
   let totalCreatedQuestions = 0
   // get data from mysql and read in loop
   const url = "http://localhost:3000/fecthquizdata";
-
-  fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      totalchosenquestions: totalquestionschosen
+  // get current user token
+  const token = localStorage.getItem("token");
+  if (token) {
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        "Authorization": token
+      },
+      body: JSON.stringify({
+        totalchosenquestions: totalquestionschosen
+      })
     })
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (!Array.isArray(data)) {
-        console.error('Unexpected response format:', data);
-        alert('Error: Unexpected response format.');
-        return;
-      }
-
-      console.log('Fetched data:', data);
-
-      // Loop over each question in the response
-      data.forEach((question, index) => {
-        if (question && question.questionNumber && question.questionContent) {
-          createQuestionCard(
-            question.questionNumber,
-            question.questionContent,
-            [question.option1, question.option2, question.option3, question.option4],
-            question.answer,
-            question.image
-          );
-          totalCreatedQuestions++;
-        } else {
-          console.warn(`Skipping invalid question at index ${index}:`, question);
+      .then(response => response.json())
+      .then(data => {
+        if (!Array.isArray(data)) {
+          alert('Error: Unexpected response format.');
+          return;
         }
+        console.log('Fetched data:', data);
+        // Loop over each question in the response
+        data.forEach((question, index) => {
+          if (question && question.questionNumber && question.questionContent) {
+            createQuestionCard(
+              question.questionNumber,
+              question.questionContent,
+              [question.option1, question.option2, question.option3, question.option4],
+              question.answer,
+              question.image
+            );
+            totalCreatedQuestions++;
+          } else {
+            console.warn(`Skipping invalid question at index ${index}:`, question);
+          }
+        });
+
+        console.log(`Total Questions Created: ${totalCreatedQuestions}`);
+      })
+      .catch(error => {
+        console.error('Error fetching questions:', error);
+        alert('Cannot fetch new questions. Please try again.');
       });
-
-      console.log(`Total Questions Created: ${totalCreatedQuestions}`);
-    })
-    .catch(error => {
-      console.error('Error fetching questions:', error);
-      alert('Cannot fetch new questions. Please try again.');
-    });
-
+  } else {
+    alert("Token expired, Please login again for security reasons!");
+  }
   //start countdown
   countdowntime()
 }
@@ -224,6 +255,8 @@ function createQuestionCard(questionNumber, questionText, options, answer, image
 
   // Append the card to the container
   document.getElementById('questionsboard').appendChild(card);
+  // show button submit quiz 
+  document.getElementById('containersubmitquiz').style.display = 'block';
 }
 
 
@@ -259,7 +292,7 @@ function calculatePercentageGrade(scoreObtained, totalScore) {
 
 function showgrade() {
   document.getElementById("timer").textContent = "Time's up!";
-  btnsubmitquiz.style.display = "none"
+  document.getElementById("containersubmitquiz").style.display = "none"
   document.getElementById("timerdashboard").style.display = "none"
   console.log(usersoption)
   changecolor_correctanswer()
@@ -285,7 +318,7 @@ function showgrade() {
   console.log("total ques:" + totalques)
   let percentage = calculatePercentageGrade(totalcorrects, totalquestions)
   resulttxt.innerText = "Total correct answers: " + totalcorrects + "/" + totalquestions + " (" + percentage + ")"
-  alert(totalcorrects);
+  // alert(totalcorrects);
   // send data to store into quizze attempt
   const url = "http://localhost:3000/adduserscore";
 
@@ -302,11 +335,11 @@ function showgrade() {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-      alert('Add new interest Successfully!');
+      alert('Update Score Successfully!');
     })
     .catch(error => {
       console.error('Error:', error);
-      alert('Cannot Add new Interest!');
+      alert('Some error occured!');
     });
 
 }
@@ -439,7 +472,7 @@ window.onclick = e => {
       if (correctChoicePostion === questionnumber && !ismoved) {
         // Get the position of the element relative to the viewport
         const rect = checkoptions[k].getBoundingClientRect();
-        const topPosition = (rect.top + window.pageYOffset) - 290;
+        const topPosition = (rect.top + window.pageYOffset) - 310;
         console.log(topPosition)
         // Scroll to the element's position
         window.scrollTo({

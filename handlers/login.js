@@ -13,7 +13,7 @@ export const handleLogin = async (req, res) => {
       message: "Login successful",
       token: req.session.token,
       username: req.session.username
-    }).render('index');
+    });
 
   } else {
     // If somehow req.user isn't set, redirect to the login page

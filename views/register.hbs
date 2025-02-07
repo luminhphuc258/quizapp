@@ -1,81 +1,76 @@
-<style>
-  .log-in-pop {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    border-radius: 10px;
-    background: #f8f8f8;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+<br>
+<br>
+<br>
+<br>
+<br>
+<main style="margin-top: 10px;">
+  <div class="log-in-pop" style=" border-radius:10px;">
+    <div class="log-in-pop-left" style="margin-top: 10%;">
+      <center>
+        <img src="/images/register.png" style="background-size: contain; height: 90%; width: 90%;">
+      </center>
 
-  .log-in-pop img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .form-group {
-    margin-bottom: 15px;
-  }
-
-  .log-in-btn {
-    width: 100%;
-    background: #337ab7;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-  }
-
-  .log-in-btn:hover {
-    background: #286090;
-  }
-</style>
-
-<div class="container">
-  <div class="log-in-pop">
-    <div class="text-center">
-      <img src="/images/register.png" alt="Register">
     </div>
+    <div class="log-in-pop-right">
+      <b style="text-align: center; font-size: 1.9rem; font-weight: 800;">Register Your Account</b>
 
-    <h2 class="text-center">Register Your Account</h2>
-
-    <form id="createnewaccount" action="/register" method="POST">
-      <div class="form-group">
-        <label for="Role">Select Role</label>
-        <select name="Role" id="Role" class="form-control" required>
-          <option value="" disabled selected>Please Select</option>
-          <option value="1">Normal</option>
-          <option value="0">Admin</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="FirstName">First Name</label>
-        <input type="text" name="FirstName" id="FirstName" class="form-control" required>
-      </div>
-
-      <div class="form-group">
-        <label for="LastName">Last Name</label>
-        <input type="text" name="LastName" id="LastName" class="form-control" required>
-      </div>
-
-      <div class="form-group">
-        <label for="UserName">Email</label>
-        <input type="email" name="UserName" id="UserName" class="form-control" required>
-      </div>
-
-      <div class="form-group">
-        <label for="Password">Password</label>
-        <input type="password" id="Password" name="Password" class="form-control" required>
-      </div>
-
-      <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
-      </div>
-
-      <button type="submit" class="btn log-in-btn">Sign Up</button>
-    </form>
+      <form id="createnewaccount" class="s12" action="/register" method="POST">
+        <br>
+        <div>
+          <div class="input-field s12" style="margin-left:8px;">
+            <select name="Role" id="Role" class="form-control" required>
+              <option value="" disabled selected>Choose User Role</option>
+              <option value="1">Normal</option>
+              <option value="0">Admin</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <div class="input-field s12">
+            <input style="width: 98.5%;" name="FirstName" id="FirstName" type="text"
+              class="form-control validate userinputcontrols" required>
+            <label>First name</label>
+          </div>
+        </div>
+        <div>
+          <div class="input-field s12">
+            <input style="width: 98.5%;" name="LastName" id="LastName" type="text"
+              class="form-control validate userinputcontrols" required>
+            <label>Last Name</label>
+          </div>
+        </div>
+        <div>
+          <div class="input-field s12">
+            <input style="width: 98.5%;" type="email" name="UserName" id="UserName"
+              class="form-control validate userinputcontrols" required>
+            <label>Email</label>
+          </div>
+        </div>
+        <div>
+          <div class="input-field s12">
+            <input style="width: 98.5%;" type="password" id="Password" name="Password"
+              class="form-control validate userinputcontrols" required>
+            <label>Password</label>
+          </div>
+          <div class="input-field s12">
+            <input style="width: 98.5%;" type="password" id="confirmPassword" name="confirmPassword"
+              class="form-control validate userinputcontrols" required>
+            <label>Confirm Password</label>
+          </div>
+        </div>
+        <br>
+        <div>
+          <div class="input-field s4">
+            <input type="submit" value="Sign Up" class="waves-effect waves-light log-in-btn">
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
+  <br>
+</main>
+<br>
+<br>
+<br>
+<br>
+<br>

@@ -1,24 +1,25 @@
 import QuestionsSchema from '../models/questions.js';
 // Method to create a new question
 export const storeQuestion = async (req, res) => {
-  try {
-    console.log(req.body);
+  // try {
+  console.log("Calling to add new questions");
+  console.log(req.body);
 
-    const { content, option1, option2, option3, option4, answer, questiontype, score, quizid, images } = req.body;
+  const { content, option1, option2, option3, option4, answer, questiontype, score, quizid, images } = req.body;
 
-    // Validate required fields
-    if (!content || !option1 || !option2 || !option3 || !option4 || !answer || !questiontype || !quizid) {
-      return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    // Create a new question record
-    const newQuestion = await QuestionsSchema.create({ content, option1, option2, option3, option4, answer, questiontype, score, quizid, images });
-
-    return res.status(201).json(newQuestion);
-  } catch (error) {
-    console.error('Error storing question:', error);
-    return res.status(500).json({ error: 'Failed to create question.' });
+  // Validate required fields
+  if (!content || !option1 || !option2 || !option3 || !option4 || !answer || !questiontype || !quizid) {
+    return res.status(400).json({ error: 'Missing required fields' });
   }
+
+  // Create a new question record
+  const newQuestion = await QuestionsSchema.create({ content, option1, option2, option3, option4, answer, questiontype, score, quizid, images });
+
+  return res.status(201).json(newQuestion);
+  // } catch (error) {
+  //   console.error('Error storing question:', error);
+  //   return res.status(500).json({ error: 'Failed to create question.' });
+  // }
 };
 
 // Method to update an existing question
@@ -56,6 +57,34 @@ export const updateQuestion = async (req, res) => {
     return res.status(500).json({ error: 'Failed to update question.' });
   }
 };
+
+// fetch all questions 
+// Method to fetch all questions
+export const fetchAllQuestions = async (req, res) => {
+  try {
+    console.log(" ============= Calling to get questions data =================");
+    const questions = await QuestionsSchema.findAll();
+    // Map the data to an array of objects with required fields
+    let formattedQuestions = [];
+    for (const question of questions) {
+      formattedQuestions.push({
+        questionNumber: question.id,
+        questionContent: question.content,
+        option1: question.option1,
+        option2: question.option2,
+        option3: question.option3,
+        option4: question.option4,
+        answer: question.answer,
+        score: question.score
+      });
+    }
+    return formattedQuestions;
+  } catch (error) {
+    return null;
+  }
+};
+
+
 
 // Method to fetch all questions
 export const fetchQuestions = async (req, res) => {

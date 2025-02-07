@@ -31,44 +31,32 @@
   <br>
   <br>
   <div class="card" id="menusetting" style="width: 100%; padding: 30px">
-    <div class="card-header"><b>User Settings</b></div>
+    <div class="card-header">
+      <h3>User Settings</h3>
+    </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
-        <div class="dropdown">
-          <button id="quiztopic" type="button" class="btn btn-danger btn-block dropdown-toggle" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Choose Topic <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu btn-block">
-            <li><a href="#" style="font-size: medium; font-weight: bold" onclick="setQuizId(1)">Canada
-              </a></li>
-            <li><a href="#" style="font-size: medium; font-weight: bold" onclick="setQuizId(2)">News
-              </a></li>
-          </ul>
+        <div class="form-group">
+          <select name="quiztopic" id="quiztopic" class="form-control" required>
+            <option value="" disabled selected>Please Select Quiz Topic</option>
+            <option value="1">Canada</option>
+            <option value="2">News</option>
+          </select>
         </div>
-        <div class="dropdown">
-          <button id="btnnumberquestions" type="button" class="btn btn-danger btn-block dropdown-toggle"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Choose the number of questions <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu btn-block">
-            <li><a href="#" style="font-size: medium; font-weight: bold" onclick="shownumberquestions(5)">5
-                questions</a></li>
-            <li><a href="#" style="font-size: medium; font-weight: bold" onclick="shownumberquestions(7)">7
-                questions</a></li>
-            <li><a href="#" style="font-size: medium; font-weight: bold" onclick="shownumberquestions(10)">10
-                questions</a>
-            </li>
-          </ul>
+        <br>
+        <div class="form-group">
+          <select name="btnnumberquestions" id="btnnumberquestions" class="form-control" required>
+            <option value="" disabled selected>How many questions do you want?</option>
+            <option value="5">Total 5 Questions</option>
+            <option value="7">Total 7 Questions</option>
+            <option value="10">Total 10 Questions</option>
+          </select>
         </div>
       </li>
-
-      <li class="list-group-item">
-        <span id="usertotalquestions"
-          style="font-size: medium; font-weight: bold; padding: 15px">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <br>
       </li>
       <li class="list-group-item">
-        <button type="button" class="btn btn-success btn-block" onclick="startquiz()">
+        <button id="btnStartQuiz" type="button" class="btn btn-success btn-block">
           Start Quiz
         </button>
       </li>
@@ -104,7 +92,7 @@
         <div id="questionsboard"></div>
         <br />
         <div id="containersubmitquiz" class="text-center" style="display: none;">
-          <button type="button" class="btn btn-danger" onclick="showConfirmModal()">
+          <button id="btnSubmitQuiz" type="button" class="btn btn-danger">
             Submit the quiz
           </button>
         </div>
@@ -112,7 +100,7 @@
         <div id="resultofquiz" class="alert alert-info text-center" role="alert" style="display: none;"></div>
 
         <div id="restartarea" class="text-center" style="display: none;">
-          <button type="button" class="btn btn-success" onclick="restartQuiz()">
+          <button id="btnReserQuiz" type="button" class="btn btn-success">
             Restart the quiz
           </button>
         </div>
