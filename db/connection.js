@@ -1,9 +1,16 @@
 import { Sequelize } from 'sequelize';
+import dotenv from "dotenv";
+dotenv.config();
 
-const sequelize = new Sequelize('quiz', 'adminmysql', 'AVNS_LY4-MCRMrcq-fZmJxcd', {
-  host: 'mysql-1a918afe-happyquiz.h.aivencloud.com',
+const database = process.env.DATABASE;
+const dbpass = process.env.DBPASS;
+const dbuser = process.env.DBUSNAME;
+const dbhost = process.env.DBHOST;
+const dbport = process.env.DBPORT;
+const sequelize = new Sequelize(database, dbuser, dbpass, {
+  host: dbhost,
   dialect: 'mysql',
-  port: 15225
+  port: dbport
 });
 
 export default sequelize;

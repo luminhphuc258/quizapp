@@ -1,6 +1,9 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import UsersSchema from '../models/user.js';
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const checkUserRoleBeforeLogin = async (req, res, next) => {
   try {
@@ -32,7 +35,7 @@ export const checkUserRoleBeforeLogin = async (req, res, next) => {
     const UserId = user.dataValues.id;
     // Generate JWT token
     const token = jwt.sign(
-      { id: UserId, username: Username, role: usrRole }, 'happyquzi', { expiresIn: '1h' }
+      { id: UserId, username: Username, role: usrRole }, process.env.JWT_SECRET || '****', { expiresIn: '1h' }
     );
 
     console.log("====TOKEN RETURN======")

@@ -9,19 +9,7 @@ let limitedtime = 1
 let myModal
 let user = ""
 let quizID = "1";
-//hide submit quiz at the first time
 
-// function shownumberquestions(numquestions) {
-//   let tagresult = document.getElementById("usertotalquestions")
-//   tagresult.innerText = numquestions + " questions"
-//   totalquestions = numquestions
-// }
-
-// function setQuizId(number, topic) {
-//   let tagresult = document.getElementById("questiontopic")
-//   tagresult.innerText = "Topic: " + topic;
-//   quizID = number;
-// }
 
 document.addEventListener("DOMContentLoaded", function () {
   //start quiz

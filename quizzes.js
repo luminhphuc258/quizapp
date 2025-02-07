@@ -10,10 +10,13 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 // import handle bar
 import { engine } from "express-handlebars";
+import dotenv from "dotenv";
+
+
 // Define __filename and __dirname using import.meta.url
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
+dotenv.config();
 const server = express();
 const logRequestsMiddleware = (req, res, next) => {
   const timestamp = new Date().toISOString(); // Fixed here
@@ -53,7 +56,8 @@ server.set('views', './views');
 server.use(express.static(path.join(__dirname, 'public')));
 server.use(express.urlencoded({ extended: false }));
 
-server.listen(3000, (err) => {
+const PORT = process.env.PORT || 5000;
+server.listen(PORT, (err) => {
   if (err) {
     console.log(err);
     return;
