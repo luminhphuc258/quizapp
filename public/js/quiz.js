@@ -309,37 +309,6 @@ function showgrade() {
       alert('Cannot Add new Interest!');
     });
 
-  // //storage the current grade
-  // gradeObject = {
-  //   username: user, totalpercentage: percentage,
-  //   totalcorrectquestion: totalcorrects, totalquestion: totalques,
-  //   date: get_Date_Today()
-  // }
-
-
-  // // Storing the array in a cookie
-  // // Stores the 'users' array for 7 days
-  // var current_arryGradeHistory = getCookieforArray('gradehistory');
-  // console.log(current_arryGradeHistory)
-  // if (current_arryGradeHistory === null) {
-  //   //set cookie to save this object for the first time
-  //   var gradeshistory = [
-  //     gradeObject
-  //   ];
-  //   console.log("\n this is a first time!")
-  //   setCookieforArray('gradehistory', gradeshistory, 7);
-
-  // } else {
-  //   //update to new item to this array 
-  //   current_arryGradeHistory.push(gradeObject)
-  //   console.log("\n okmen update new one")
-  //   console.log(current_arryGradeHistory)
-  //   deleteCookie("gradehistory");
-  //   setCookieforArray('gradehistory', current_arryGradeHistory, 7);
-  // }
-
-
-
 }
 
 function get_Date_Today() {
