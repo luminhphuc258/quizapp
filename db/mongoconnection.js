@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const uri = "mongodb+srv://matthew:29061992abCD!yesokmen@happyquiz.c4srh.mongodb.net/demo?retryWrites=true&w=majority";
+const uri = "*";
 
 const connectMongoDB = async () => {
   try {
